@@ -5,101 +5,146 @@
 ![XGBoost](https://img.shields.io/badge/XGBoost-1.7%2B-red?logo=xgboost)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Bu proje, klinik ve demografik veriler kullanarak hastaların **1 yıl sonraki diyabet ilerleme skorunu** tahmin eden profesyonel bir **Regresyon ve Risk Sınıflandırma** makine öğrenmesi uygulamasıdır.
-
-`regresyon.pdf` ödev standartlarına %100 uygun olarak geliştirilmiştir. Sadece karmaşık sayısal tahminler üretmekle kalmaz; aynı zamanda hastaları **"Düşük Risk"** ve **"Yüksek Risk"** olarak kategorize eder, sonuçları anlaşılır grafikler ve **canlı masaüstü pop-up grafik pencereleri** ile sunar.
+Klinik ve demografik verileri kullanarak hastaların **1 yıl sonraki diyabet ilerleme skorunu** tahmin eden ve **risk derecelendirmesi** yapan profesyonel makine öğrenmesi uygulamasıdır. `regresyon.pdf` isterlerine %100 uyumludur.
 
 ---
 
-## 🚀 Hızlı Başlangıç (Nasıl Çalıştırılır?)
+## ⚡ Hızlı Başlangıç & Kurulum
 
-Projeyi kendi bilgisayarınızda saniyeler içinde çalıştırmak için takip edin:
+<details open>
+<summary><b>🚀 Projeyi Çalıştırma Adımları (Genişletmek / Kapatmak İçin Tıklayın)</b></summary>
 
-### 1. Depoyu Klonlayın veya İndirin
-```bash
-git clone https://github.com/yasin-yumrutas/diabetes_nlksoft.git
-cd diabetes_nlksoft
-```
+<br>
 
-### 2. Gerekli Kütüphaneleri Yükleyin
-```bash
-pip install -r requirements.txt
-```
+1. **Depoyu Klonlayın:**
+   ```bash
+   git clone https://github.com/yasin-yumrutas/diabetes_nlksoft.git
+   cd diabetes_nlksoft
+   ```
 
-### 3. Projeyi ve Canlı Grafik Pencerelerini (GUI) Çalıştırın
-```bash
-python main.py --gui
-```
-> **İpucu:** `--gui` parametresi projenin model eğitimlerini yapar, raporları kaydeder ve ardından **her bir grafiği canlı pencere (Pop-Up) olarak açabileceğiniz Masaüstü Arayüzünü** ekrana getirir.
+2. **Kütüphaneleri Yükleyin:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Model Eğitimini ve Masaüstü Pop-Up Grafik Arayüzünü Başlatın:**
+   ```bash
+   python main.py --gui
+   ```
+</details>
 
 ---
 
-## 🖥️ Masaüstü Etkileşimli Grafik Penceresi Görüntüleyici (`gui_viewer.py`)
+## 🖥️ İnteraktif Masaüstü Grafik Pencereleri (`gui_viewer.py`)
 
-Grafiklerin sadece klasörde kalmaması, ekranda tek tek canlı pencereler halinde açılıp incelenebilmesi için özel bir masaüstü arayüzü geliştirilmiştir:
+<details>
+<summary><b>🖥️ Canlı Pop-Up Grafik Görüntüleyici Kullanımı</b></summary>
+
+<br>
+
+Grafiklerin sadece klasörde resim olarak kalmaması, **tek tek canlı pencereler halinde ekranda açılıp incelenebilmesi** için geliştirilen GUI uygulamasını çalıştırmak için:
 
 ```bash
 python gui_viewer.py
 ```
-Açılan penceredeki butonlara basarak grafikler üzerinde **yakınlaştırma (zoom), kaydırma (pan) ve detaylı inceleme** yapabilirsiniz.
+* **Özellikler:** Tıklanan grafiği bağımsız pencerede açar; **zoom (yakınlaştırma), pan (ekranda kaydırma) ve yüksek kalitede kaydetme** araçları sunar.
+
+</details>
 
 ---
 
-## 📊 Grafik Rehberi (Her Grafik Ne Anlama Geliyor?)
+## 📊 Grafik Analizleri ve Anlamları (Açılır Sekmeler)
 
-Aşağıdaki grafiklerin her biri `outputs/charts/` klasörüne yüksek çözünürlükte kaydedilmiştir ve `README` üzerinde canlı olarak incelenebilir:
+Aşağıdaki başlıklara tıklayarak her bir grafiği ve ne anlama geldiğini detaylıca görüntüleyebilirsiniz:
 
-### 1. Korelasyon Isı Haritası (Feature Correlation Heatmap)
+<details>
+<summary><b>📊 1. Korelasyon Isı Haritası (Correlation Heatmap)</b></summary>
+
+<br>
+
 ![Korelasyon Haritası](outputs/charts/01_correlation_heatmap.png)
-* **Kısaca Ne Anlama Geliyor?:** Hangi klinik özelliğin (örneğin BMI veya Kan Basıncı) diyabet ilerlemesiyle ne kadar güçlü bir ilişkiye sahip olduğunu gösterir. Renk kırmızıya ve sayı $+1$'e yaklaştıkça o klinik faktör arttığında hastanın diyabet riski de doğrudan artıyor demektir.
 
----
+> **💡 Ne Anlama Geliyor?:** Klinik özelliklerin (BMI, Kan Basıncı vb.) diyabet ilerlemesiyle ilişkisini gösterir. Sayılar $+1$'e yaklaştıkça o klinik değer arttığında hastanın diyabet ilerleme riski de doğrudan artmaktadır.
+</details>
 
-### 2. Diyabet Skoru Dağılımı ve Risk Eşik Çizgisi
+<details>
+<summary><b>📈 2. Diyabet Skoru Dağılımı ve Risk Eşik Çizgisi</b></summary>
+
+<br>
+
 ![Hedef Dağılımı](outputs/charts/02_target_distribution_risk.png)
-* **Kısaca Ne Anlama Geliyor?:** Hastaların diyabet ilerleme skorlarının genel dağılımını gösterir. Kırmızı kesikli çizgi ($140.5$ medyan değeri), hastaları doktorların kolayca karara varabilmesi için **"Düşük Risk"** ve **"Yüksek Risk"** olarak ikiye böler.
 
----
+> **💡 Ne Anlama Geliyor?:** Hastaların diyabet ilerleme skorlarının dağılımını gösterir. Kırmızı kesikli çizgi ($140.5$ medyan değeri), hastaları karar kolaylığı sağlamak adına **"Düşük Risk"** ve **"Yüksek Risk"** olarak 2 gruba ayırır.
+</details>
 
-### 3. Gerçek vs Tahmin Edilen Değerler ($y = x$ Doğrusu)
+<details>
+<summary><b>🎯 3. Gerçek vs Tahmin Edilen Değerler (y = x Doğrusu)</b></summary>
+
+<br>
+
 ![Gerçek vs Tahmin](outputs/charts/03_actual_vs_predicted.png)
-* **Kısaca Ne Anlama Geliyor?:** Hastanın gerçek diyabet skoru ile modellerin tahminlerini kıyaslar. Kırmızı çizgi ($y=x$) **mükemmel tahmini** temsil eder. Mavi noktalar bu kırmızı doğruya ne kadar yakınsa model o kadar az hata yapıyor demektir.
 
----
+> **💡 Ne Anlama Geliyor?:** Gerçek skorlar ile modellerin tahminlerini kıyaslar. Kırmızı çizgi ($y=x$) **mükemmel tahmini** temsil eder. Noktalar kırmıza çizgiye ne kadar yakınsa model o kadar az hata yapıyor demektir.
+</details>
 
-### 4. Artık / Hata Analizi (Residuals Analysis)
+<details>
+<summary><b>📉 4. Artık / Hata Analizi (Residuals Analysis)</b></summary>
+
+<br>
+
 ![Hata Analizi](outputs/charts/04_residuals_elasticnet.png)
-* **Kısaca Ne Anlama Geliyor?:** Modelin yaptığı hataların ($Hata = Gerçek - Tahmin$) tarafsız olup olmadığını kontrol eder. Hataların sıfır etrafında simetrik ve çan eğrisine (normal dağılım) uygun dağılması modelin güvenilir olduğunu doğrular.
 
----
+> **💡 Ne Anlama Geliyor?:** Modelin yaptığı hataların ($Hata = Gerçek - Tahmin$) sıfır etrafında tarafsız dağılıp dağılmadığını test eder. Çan eğrisine (normal dağılıma) uyum modelin güvenilir olduğunu gösterir.
+</details>
 
-### 5. Regresyon Modelleri Metrik Kıyaslaması
+<details>
+<summary><b>🏆 5. Regresyon Modelleri Metrik Kıyaslaması</b></summary>
+
+<br>
+
 ![Metrik Kıyaslaması](outputs/charts/05_metrics_comparison.png)
-* **Kısaca Ne Anlama Geliyor?:** Eğitilen tüm regresyon modellerinin başarısını tek bakışta karşılaştırır. Yeşil çubuk **R² Score** (açıklayıcılık oranı - yüksek istenir), turuncu çubuklar ise **MAE ve RMSE** (hata miktarları - düşük istenir) değerleridir.
 
----
+> **💡 Ne Anlama Geliyor?:** Tüm modellerin performansını kıyaslar. Yeşil çubuk **R² Score** (açıklayıcılık oranı - yüksek istenir), turuncu çubuklar ise **MAE ve RMSE** (hata miktarları - düşük istenir) değerlerini gösterir.
+</details>
 
-### 6. En Önemli Klinik Özellikler (Feature Importances)
+<details>
+<summary><b>🔍 6. En Önemli Klinik Özellikler (Feature Importances)</b></summary>
+
+<br>
+
 ![Özellik Önemleri](outputs/charts/06_feature_importances_elasticnet.png)
-* **Kısaca Ne Anlama Geliyor?:** Yapay zeka modelinin bir hastanın diyabet skorunu tahmin ederken **en çok hangi klinik verilere önem verdiğini** sıralar. Grafik incelediğinde hastanın **BMI (Vücut Kitle İndeksi)** ve **s5 (Serum Trigliserit Seviyesi)** en kritik iki faktördür.
 
----
+> **💡 Ne Anlama Geliyor?:** Yapay zeka modelinin tahminde bulunurken **en çok hangi klinik verilere önem verdiğini** sıralar. Grafik incelendiğinde **BMI (Vücut Kitle İndeksi)** ve **s5 (Serum Trigliserit Seviyesi)** en kritik 2 faktördür.
+</details>
 
-### 7. Risk Sınıflandırması Karmaşıklık Matrisi (Confusion Matrix)
+<details>
+<summary><b>📋 7. Risk Sınıflandırması Karmaşıklık Matrisi (Confusion Matrix)</b></summary>
+
+<br>
+
 ![Karmaşıklık Matrisi](outputs/charts/07_confusion_matrix_lojistik_regresyon.png)
-* **Kısaca Ne Anlama Geliyor?:** Sınıflandırma modelinin kaç yüksek riskli hastayı doğru bildiğini (Doğru Pozitif), kaç düşük riskli hastayı doğru teşhis ettiğini ve nerede yanıldığını hücre hücre gösterir. Sol üst ve sağ alt köşedeki yüksek sayılar modelin yüksek doğruluğunu gösterir.
 
----
+> **💡 Ne Anlama Geliyor?:** Sınıflandırma modelinin kaç yüksek riskli ve düşük riskli hastayı doğru bildiğini gösterir. Sol üst ve sağ alt köşedeki yüksek sayılar modelin yüksek doğruluğunu kanıtlar.
+</details>
 
-### 8. Sınıflandırma ROC-AUC Performans Eğrileri
+<details>
+<summary><b>⚡ 8. Sınıflandırma ROC-AUC Performans Eğrileri</b></summary>
+
+<br>
+
 ![ROC-AUC Eğrileri](outputs/charts/08_roc_auc_curves.png)
-* **Kısaca Ne Anlama Geliyor?:** Modelin sağlıklı hastalar ile yüksek riskli hastaları **birbirinden ayırma kapasitesini** ölçer. Çizilen eğri sol üst köşeye ne kadar yakınsa ($AUC \rightarrow 1.0$) modelin risk ayırt etme gücü o kadar kusursuzdur. Projemizde Lojistik Regresyon $0.847$ AUC başarısına ulaşmıştır.
+
+> **💡 Ne Anlama Geliyor?:** Modelin sağlıklı ve yüksek riskli hastaları **birbirinden ayırma gücünü** ölçer. Eğri sol üst köşeye ne kadar yakınsa ($AUC \rightarrow 1.0$) modelin ayırt etme başarısı o kadar kusursuzdur (Lojistik Regresyon: $0.847$ AUC).
+</details>
 
 ---
 
-## 🏆 Model Performans Sonuçları (Tablolar)
+## 🏆 Model Performans Tabloları
 
-### Regresyon Modelleri Karşılaştırması (`regresyon.pdf` İsterleri)
+<details>
+<summary><b>📊 1. Regresyon Modelleri Performans Tablosu (Tıklayarak Açın)</b></summary>
+
+<br>
 
 | Model | MAE | MSE | RMSE | R² Score | 5-Fold CV R² |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -113,9 +158,12 @@ Aşağıdaki grafiklerin her biri `outputs/charts/` klasörüne yüksek çözün
 | **Random Forest** | 43.2315 | 2883.4538 | 53.6978 | 0.4558 | 0.4237 ± 0.0723 |
 | **Decision Tree** | 51.6773 | 4166.2606 | 64.5466 | 0.2136 | 0.1588 ± 0.2693 |
 
----
+</details>
 
-### Sınıflandırma Modelleri Karşılaştırması (Net Risk Çıktısı)
+<details>
+<summary><b>📋 2. Sınıflandırma (Risk Derecelendirme) Tablosu (Tıklayarak Açın)</b></summary>
+
+<br>
 
 | Model | Doğruluk (Accuracy) | Hassasiyet (Precision) | Duyarlılık (Recall) | F1-Skoru | ROC-AUC Score |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -123,9 +171,16 @@ Aşağıdaki grafiklerin her biri `outputs/charts/` klasörüne yüksek çözün
 | **XGBoost Sınıflandırıcı** | 0.7753 | 0.7381 | 0.7750 | 0.7561 | 0.8235 |
 | **Random Forest Sınıflandırıcı**| 0.7303 | 0.6818 | 0.7500 | 0.7143 | 0.8184 |
 
+</details>
+
 ---
 
-## 📚 Kullanılan Modeller ve Anlamları
+## 📚 Kullanılan Algoritmalar ve Açıklamaları
+
+<details>
+<summary><b>🤖 Model Terimleri ve Kullanım Amaçları (Tıklayarak Açın)</b></summary>
+
+<br>
 
 1. **Linear Regression:** Özellikler ile hedef skor arasına temel doğrusal çizgi çizer.
 2. **Ridge Regression (L2):** Aşırı korelasyonlu değişkenlerde ezberlemeyi (overfitting) önlemek için ceza ekler.
@@ -137,26 +192,7 @@ Aşağıdaki grafiklerin her biri `outputs/charts/` klasörüne yüksek çözün
 8. **XGBoost:** Gradient Boosting'in donanım ve hız açısından aşırı optimize edilmiş versiyonudur.
 9. **SVR (RBF Kernel):** Veriyi yüksek boyutlu matematiksel uzaya taşıyarak karmaşık ilişkileri modeller.
 
----
-
-## 📁 Proje Dosya Yapısı
-
-```
-diabetes_nlksoft/
-│
-├── main.py                  # Pipeline'ı çalıştıran ana script
-├── gui_viewer.py            # Masaüstü grafik pop-up arayüzü (Tkinter GUI)
-├── data_loader.py           # Veri yükleme, Türkçeleştirme ve Outlier tespiti
-├── feature_engineering.py   # Klinik özellik türetimi ve Risk sınıfları
-├── models.py                # Regresyon ve Sınıflandırma model eğitimleri
-├── evaluation.py            # Metrik hesaplamaları ve rapor dışa aktarımı
-├── visualization.py         # 300 DPI PNG grafik üretimi
-├── diabetes_dataset.csv     # Kaydedilmiş orijinal veri seti
-├── requirements.txt         # Proje bağımlılıkları
-└── outputs/
-    ├── reports/             # CSV ve Markdown performans raporları
-    └── charts/              # Yüksek çözünürlüklü grafik görselleri
-```
+</details>
 
 ---
 
