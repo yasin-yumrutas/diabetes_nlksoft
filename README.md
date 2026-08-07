@@ -197,4 +197,4 @@ Aşağıdaki başlıklara tıklayarak her bir grafiği ve ne anlama geldiğini d
 ---
 
 ### 👨‍💻 Geliştirici
-* **Yasin Yumrutaş** - [GitHub Profili](https://github.com/yasin-yumrutas)
+* **Yasin Yumrutaş** - [VARUNET]((https://www.varunet.com/))
