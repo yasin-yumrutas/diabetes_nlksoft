@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07110f" />
+  <meta name="description" content="Diyabet ilerleme veri setinde 12 makine öğrenmesi yaklaşımını karşılaştıran, tekrar üretilebilir model analiz raporu." />
+  <meta property="og:title" content="Diyabet İlerleme Model Laboratuvarı" />
+  <meta property="og:description" content="Regresyon, deneysel risk sınıflandırması, çapraz doğrulama ve açıklanabilirlik analizi." />
+  <meta property="og:image" content="/outputs/charts/08_roc_auc_curves.png" />
+  <title>Diyabet İlerleme Model Laboratuvarı</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="web.css" />
+</head>
+<body>
+  <a class="skip-link" href="#content">Ana içeriğe geç</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Ana sayfa"><i></i><span>MODEL/<b>LAB</b></span></a>
+    <nav aria-label="Ana navigasyon">
+      <a href="#method">Yöntem</a><a href="#results">Sonuçlar</a><a href="#evidence">Kanıtlar</a>
+    </nav>
+    <a class="header-link" href="https://github.com/yasin-yumrutas/diabetes_nlksoft" target="_blank" rel="noreferrer">GitHub ↗</a>
+  </header>
+
+  <main id="content">
+    <section class="hero" id="top">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <div class="eyebrow"><span>ML CASE STUDY</span> / 2026</div>
+        <h1>Diyabet İlerleme<br /><em>Model Laboratuvarı</em></h1>
+        <p>Standartlaştırılmış klinik özelliklerden bir yıllık hastalık ilerleme ölçümünü inceleyen; regresyon, deneysel ikili sınıflandırma ve açıklanabilirlik sonuçlarını ortak bir değerlendirme hattında karşılaştıran çalışma.</p>
+        <div class="hero-actions"><a class="button primary" href="#results">Sonuçları incele</a><a class="button" href="https://github.com/yasin-yumrutas/diabetes_nlksoft" target="_blank" rel="noreferrer">Kaynak kod</a></div>
+      </div>
+      <div class="hero-panel" aria-label="Öne çıkan ölçümler">
+        <div><span>VERİ SETİ</span><strong>442</strong><small>gözlem · eksik değer yok</small></div>
+        <div><span>MODEL KAPSAMI</span><strong>12</strong><small>9 regresyon · 3 sınıflandırma</small></div>
+        <div><span>EN İYİ ROC-AUC</span><strong>0.847</strong><small>lojistik regresyon</small></div>
+        <div><span>EN İYİ TEST R²</span><strong>0.479</strong><small>ElasticNet</small></div>
+      </div>
+      <div class="disclaimer"><b>ARAŞTIRMA NOTU</b><span>Bu çalışma eğitim ve model karşılaştırma amaçlıdır; klinik tanı, tedavi veya bireysel risk kararı üretmez.</span></div>
+    </section>
+
+    <section class="method section" id="method">
+      <div class="section-label"><span>01</span> DEĞERLENDİRME HATTI</div>
+      <div class="method-copy"><h2>Tek skor değil,<br />izlenebilir bir deney.</h2><p>Her yaklaşım aynı ayrım ve değerlendirme çerçevesinde çalıştırıldı. Böylece sonuçlar model ailesi, genelleme başarısı ve hata davranışı üzerinden karşılaştırılabilir kaldı.</p></div>
+      <ol class="pipeline">
+        <li><b>01</b><div><strong>Veri hazırlama</strong><span>442 gözlem, 10 standartlaştırılmış temel özellik ve IQR tabanlı aykırı değer kontrolü.</span></div></li>
+        <li><b>02</b><div><strong>Özellik mühendisliği</strong><span>BMI, kan basıncı, glukoz ve lipid göstergelerinden 5 türetilmiş etkileşim özelliği.</span></div></li>
+        <li><b>03</b><div><strong>Model karşılaştırması</strong><span>Doğrusal, düzenlileştirilmiş, kernel ve ağaç tabanlı toplam 12 yaklaşım.</span></div></li>
+        <li><b>04</b><div><strong>Doğrulama ve yorum</strong><span>5-fold CV, hold-out test, residual analiz, ROC-AUC ve özellik katkısı.</span></div></li>
+      </ol>
+    </section>
+
+    <section class="results section" id="results">
+      <div class="section-label"><span>02</span> MODEL SONUÇLARI</div>
+      <div class="results-head"><div><h2>Karşılaştırmalı<br />performans.</h2><p>Tablolar, aynı pipeline ile yeniden üretilen sonuçları gösterir.</p></div><div class="tabs" role="tablist" aria-label="Model sonuç türü"><button class="active" role="tab" aria-selected="true" data-table="regression">Regresyon</button><button role="tab" aria-selected="false" data-table="classification">Sınıflandırma</button></div></div>
+      <div class="table-wrap" data-panel="regression">
+        <table><thead><tr><th>Model</th><th>MAE ↓</th><th>RMSE ↓</th><th>Test R² ↑</th><th>5-Fold CV R² ↑</th></tr></thead><tbody>
+          <tr class="winner"><td><b>ElasticNet</b><span>En yüksek test R²</span></td><td>42.2134</td><td>52.5406</td><td>0.4790</td><td>0.4769 ± 0.0547</td></tr>
+          <tr><td>Lasso Regression</td><td>41.8664</td><td>52.6651</td><td>0.4765</td><td><b>0.4824 ± 0.0549</b></td></tr>
+          <tr><td>Ridge Regression</td><td>41.9155</td><td>52.7190</td><td>0.4754</td><td>0.4821 ± 0.0544</td></tr>
+          <tr><td>SVR · RBF</td><td>42.2231</td><td>52.7323</td><td>0.4752</td><td>0.3867 ± 0.0534</td></tr>
+          <tr><td>Linear Regression</td><td><b>41.8349</b></td><td>52.9066</td><td>0.4717</td><td>0.4808 ± 0.0586</td></tr>
+          <tr><td>XGBoost</td><td>43.3862</td><td>52.9866</td><td>0.4701</td><td>0.4060 ± 0.0542</td></tr>
+        </tbody></table>
+      </div>
+      <div class="table-wrap hidden" data-panel="classification">
+        <table><thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC ↑</th></tr></thead><tbody>
+          <tr class="winner"><td><b>Lojistik Regresyon</b><span>En yüksek ROC-AUC</span></td><td>0.7753</td><td>0.7381</td><td>0.7750</td><td>0.7561</td><td>0.8474</td></tr>
+          <tr><td>XGBoost</td><td>0.7753</td><td>0.7381</td><td>0.7750</td><td>0.7561</td><td>0.8235</td></tr>
+          <tr><td>Random Forest</td><td>0.7303</td><td>0.6818</td><td>0.7500</td><td>0.7143</td><td>0.8184</td></tr>
+        </tbody></table>
+        <p class="table-note">İkili sınıf, hedef ilerleme skorunun medyanı olan 140.5 üzerinden deneysel olarak türetilmiştir; klinik risk kategorisi değildir.</p>
+      </div>
+    </section>
+
+    <section class="evidence section" id="evidence">
+      <div class="section-label"><span>03</span> ANALİZ KANITLARI</div>
+      <div class="evidence-head"><h2>Modeli yalnızca<br />metrikle okumamak.</h2><p>Grafiği büyütmek için seçin.</p></div>
+      <div class="chart-grid">
+        <button class="chart-card wide" data-image="outputs/charts/01_correlation_heatmap.png"><img src="outputs/charts/01_correlation_heatmap.png" alt="Özellik korelasyon ısı haritası" loading="lazy" /><span><b>01 / Korelasyon yapısı</b><small>BMI ve s5, ilerleme hedefiyle en güçlü pozitif ilişkiyi gösteriyor.</small></span></button>
+        <button class="chart-card" data-image="outputs/charts/03_actual_vs_predicted.png"><img src="outputs/charts/03_actual_vs_predicted.png" alt="Gerçek ve tahmin edilen değer karşılaştırması" loading="lazy" /><span><b>02 / Tahmin dağılımı</b><small>Dört düzenlileştirilmiş/doğrusal modelin hold-out davranışı.</small></span></button>
+        <button class="chart-card" data-image="outputs/charts/06_feature_importances_elasticnet.png"><img src="outputs/charts/06_feature_importances_elasticnet.png" alt="ElasticNet özellik önemleri" loading="lazy" /><span><b>03 / Özellik katkısı</b><small>ElasticNet katsayı büyüklüklerinde BMI ve s5 öne çıkıyor.</small></span></button>
+        <button class="chart-card wide" data-image="outputs/charts/08_roc_auc_curves.png"><img src="outputs/charts/08_roc_auc_curves.png" alt="Sınıflandırma ROC-AUC eğrileri" loading="lazy" /><span><b>04 / Ayırt etme gücü</b><small>Üç sınıflandırıcının ROC eğrileri ve rastgele tahmin referansı.</small></span></button>
+      </div>
+    </section>
+
+    <section class="limits section">
+      <div class="section-label"><span>04</span> SINIRLAR & SORUMLULUK</div>
+      <div class="limits-grid"><h2>Dürüst modelleme,<br />doğru bağlamla başlar.</h2><div><article><b>Örneklem kapsamı</b><p>442 gözlem, kapsamlı bir klinik doğrulama veya farklı popülasyonlara genelleme için yeterli değildir.</p></article><article><b>Deneysel etiket</b><p>“Düşük/yüksek” ayrımı gerçek teşhis etiketi değil, ilerleme skorunun medyanından türetilen analiz hedefidir.</p></article><article><b>Kullanım amacı</b><p>Sonuçlar model karşılaştırması ve eğitim içindir; hasta düzeyinde karar desteği olarak kullanılmamalıdır.</p></article></div></div>
+    </section>
+  </main>
+
+  <footer><div><span>YASİN YUMRUTAŞ</span><small>Machine Learning Engineering Case Study</small></div><a href="https://www.varunet.com" target="_blank" rel="noreferrer">Portfolyoya dön ↗</a><span>© <i id="year"></i></span></footer>
+  <dialog id="chart-dialog"><button aria-label="Grafiği kapat">×</button><img alt="Büyütülmüş analiz grafiği" /></dialog>
+  <script src="web.js"></script>
+</body>
+</html>
